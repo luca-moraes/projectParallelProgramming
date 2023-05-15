@@ -1,6 +1,0 @@
-Tamanho da matriz: 40X40
-Número de Gerações: 100000
-Quantidade de Threads e Tempo (segs): 
-sequencial -> 4,486s
-2 -> 1,244s
-4 -> 1,173s

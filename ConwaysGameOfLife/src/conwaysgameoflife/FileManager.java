@@ -80,13 +80,35 @@ public class FileManager {
         catch (IOException e) {}
     }
     
-    public void escritor(int[][] lastGen) throws IOException {
+    public void escritor(int[][] lastGenSeq, int[][] lastGenDouble, int[][] lastGenQuad) throws IOException {
         buffWrite = new BufferedWriter(new FileWriter(this.finalPath, encoding)); 
         
-        for(int i = 0; i < lastGen.length; i++){
-            for(int j = 0; j < lastGen.length; j ++){
-                buffWrite.append(
-                        Integer.toString(lastGen[i][j])
+        buffWrite.append("Saída sequêncial:\n");
+        for(int i = 0; i < lastGenSeq.length; i++){
+            for(int j = 0; j < lastGenSeq.length; j ++){
+                buffWrite.append(Integer.toString(lastGenSeq[i][j])
+                );
+            }
+            buffWrite.append("\n");
+        }
+        
+        buffWrite.append("\n-----------------------------------------------------------------------------\n");
+        
+        buffWrite.append("\nSaída Double Thread:\n");
+        for(int i = 0; i < lastGenDouble.length; i++){
+            for(int j = 0; j < lastGenDouble.length; j ++){
+                buffWrite.append(Integer.toString(lastGenDouble[i][j])
+                );
+            }
+            buffWrite.append("\n");
+        }
+        
+        buffWrite.append("\n-----------------------------------------------------------------------------\n");
+        
+        buffWrite.append("\nSaída Quad Thread:\n");
+        for(int i = 0; i < lastGenQuad.length; i++){
+            for(int j = 0; j < lastGenQuad.length; j ++){
+                buffWrite.append(Integer.toString(lastGenQuad[i][j])
                 );
             }
             buffWrite.append("\n");

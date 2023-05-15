@@ -18,7 +18,7 @@ public class ConwaysGameOfLife {
     public static void main(String[] args) throws IOException, InvalidNumberException, InterruptedException {
         // lendo o arquivo e pegando a matriz
         String filePath;
-        int gens = 100000;
+        int gens = 10000;
         
         if(args.length == 2){
             gens = Integer.parseInt(args[0]);
@@ -117,7 +117,7 @@ public class ConwaysGameOfLife {
         float t2 = Float.valueOf(doubleFinalTime) / 1000;
         float t4 = Float.valueOf(quadFinalTime) / 1000;
         
-        fileManager.escritor(finalBoard);
+        fileManager.escritor(finalBoard, matrix2.board, matrix4.board);
         fileManager.escritorTable(finalBoard.length, gens, t1, t2, t4);
     }
     
