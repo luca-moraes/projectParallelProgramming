@@ -28,15 +28,15 @@ public class FileManager {
     public String filePath;
     public List<String> lines;
     public Charset encoding = Charset.forName("UTF-8");
-    public String outputFile = "/home/eu/Documentos/projectParallelProgramming/ConwaysGameOfLife/src/conwaysgameoflife/saida.txt";
+    public String outputPath = "/home/eu/Documentos/projectParallelProgramming/ConwaysGameOfLife/src/files/";
+    public String finalPath;
     
     public FileManager(String path){
         filePath = path;
         this.lines = new ArrayList<>();
-        this.createFile();
     }
     
-    public Matrix readFile() throws FileNotFoundException, IOException{
+    public Matrix readFile(int gens) throws FileNotFoundException, IOException{
         scan = new Scanner(new FileReader(this.filePath, encoding))
             .useDelimiter("\\n");
         
@@ -59,18 +59,21 @@ public class FileManager {
         
         Matrix matrix = new Matrix(size, array);
         
+        this.createFile(size, gens);
+        
         return matrix;
     }
     
-    private void createFile(){
+    private void createFile(int size, int gens){
+        this.finalPath = this.outputPath + String.format("saidaMatriz%dGens%d.txt", size, gens);
         try {
-            Path path= Paths.get(this.outputFile);
+            Path path= Paths.get(finalPath);
             Files.delete(path);
         }
         catch (IOException e) {}
         
         try {
-            PrintWriter writer = new PrintWriter(this.outputFile, this.encoding);
+            PrintWriter writer = new PrintWriter(finalPath, this.encoding);
             writer.println("Output result: ");
             writer.close();
         }
@@ -78,7 +81,7 @@ public class FileManager {
     }
     
     public void escritor(int[][] lastGen) throws IOException {
-        buffWrite = new BufferedWriter(new FileWriter(this.outputFile, encoding)); 
+        buffWrite = new BufferedWriter(new FileWriter(this.finalPath, encoding)); 
         
         for(int i = 0; i < lastGen.length; i++){
             for(int j = 0; j < lastGen.length; j ++){
@@ -88,6 +91,22 @@ public class FileManager {
             }
             buffWrite.append("\n");
         }
+        
+        buffWrite.close();
+    }
+    
+    public void escritorTable(int size, int gens, float time1, float time2, float time4 ) throws IOException {
+        buffWrite = new BufferedWriter(
+                new FileWriter((
+                        this.outputPath
+                        + String.format("resultadoMatriz%dGens%d.txt", size, gens)
+                        ), encoding)
+        );
+        
+        buffWrite.append(String.format("Tamanho da matriz: %dX%d\n", size, size));
+        buffWrite.append(String.format("Número de Gerações: %d\n", gens));
+        buffWrite.append("Quantidade de Threads e Tempo (segs): \n");
+        buffWrite.append(String.format("sequencial -> %.3fs\n2 -> %.3fs\n4 -> %.3fs", time1,time2,time4));
         
         buffWrite.close();
     }

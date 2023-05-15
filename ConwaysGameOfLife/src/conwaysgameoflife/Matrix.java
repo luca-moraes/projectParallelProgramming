@@ -11,6 +11,8 @@ package conwaysgameoflife;
 public class Matrix {
     public int size;
     public int[][] board;
+    public int numOfReaders = 0;
+    public int numOfWriters = 0;
     
     public Matrix(int size, int[][] array){
         this.size = size;
@@ -36,6 +38,44 @@ public class Matrix {
         }
         
         board = tempBoard;
+    }
+    
+    public synchronized int[][] changeGenerationDistrict(int linesInit, int linesEnd, int columnsInit, int columnsEnd) throws InvalidNumberException, InterruptedException{
+        while(this.numOfWriters > 0){
+            wait();
+        }
+        
+        this.numOfReaders++;
+        
+        int[][] tempBoard = this.board;
+        
+        for(int i = linesInit; i < linesEnd; i++){
+            for(int j = columnsInit; j < columnsEnd; j++){
+                tempBoard[i][j] = verifyRules(i,j);
+            }
+        }
+        
+        this.numOfReaders--;
+        notifyAll();
+        
+        return tempBoard;
+    }
+    
+    public synchronized void updateBoard(int[][] tempBoard, int linesInit, int linesEnd, int columnsInit, int columnsEnd) throws InterruptedException{
+        while(this.numOfReaders > 0){
+            wait();
+        }
+        
+        this.numOfWriters++;
+        
+        for(int i = linesInit; i < linesEnd; i++){
+            for(int j = columnsInit; j < columnsEnd; j++){
+                this.board[i][j] = tempBoard[i][j];
+            }
+        }
+        
+        this.numOfWriters--;
+        notifyAll();
     }
     
     private int verifyRules(int i, int j) throws InvalidNumberException{
@@ -66,6 +106,5 @@ public class Matrix {
         }
         
         return vizinhos;
-    }
-    
+    }  
 }
