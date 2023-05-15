@@ -17,7 +17,7 @@ public class ConwaysGameOfLife {
      */
     public static void main(String[] args) throws IOException, InvalidNumberException, InterruptedException {
         // lendo o arquivo e pegando a matriz
-        String filePath;
+        String filePath = "/home/eu/Documentos/projectParallelProgramming/ConwaysGameOfLife/src/files/teste.txt";
         int gens = 10000;
         
         if(args.length == 2){
@@ -25,7 +25,7 @@ public class ConwaysGameOfLife {
             filePath = args[1];
         }
         
-        FileManager fileManager = new FileManager("/home/eu/Documentos/projectParallelProgramming/ConwaysGameOfLife/src/files/teste.txt");
+        FileManager fileManager = new FileManager(filePath);
 
         Matrix baseMatrix = fileManager.readFile(gens);
         
