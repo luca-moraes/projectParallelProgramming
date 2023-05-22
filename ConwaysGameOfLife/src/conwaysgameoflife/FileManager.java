@@ -28,8 +28,11 @@ public class FileManager {
     public String filePath;
     public List<String> lines;
     public Charset encoding = Charset.forName("UTF-8");
-    public String outputPath = "/home/eu/Documentos/projectParallelProgramming/ConwaysGameOfLife/src/files/";
+    public String outputPath = "/home/lmoraes/Desktop/projectParallelProgramming/ConwaysGameOfLife/src/files/";
     public String finalPath;
+    public String finalPathDouble;
+    public String finalPathQuad;
+
     
     public FileManager(String path){
         filePath = path;
@@ -65,25 +68,42 @@ public class FileManager {
     }
     
     private void createFile(int size, int gens){
-        this.finalPath = this.outputPath + String.format("saidaMatriz%dGens%d.txt", size, gens);
+        this.finalPath = this.outputPath + String.format("saidaMatriz%dGens%dSeq.txt", size, gens);
+        this.finalPathDouble = this.outputPath + String.format("saidaMatriz%dGens%dDouble.txt", size, gens);
+        this.finalPathQuad = this.outputPath + String.format("saidaMatriz%dGens%dQuad.txt", size, gens);
+
         try {
-            Path path= Paths.get(finalPath);
+            Path path = Paths.get(finalPath);
+            Path pathDouble = Paths.get(finalPathDouble);
+            Path pathQuad = Paths.get(finalPathQuad);
+
             Files.delete(path);
+            Files.delete(pathDouble);
+            Files.delete(pathQuad);
+
         }
         catch (IOException e) {}
         
         try {
             PrintWriter writer = new PrintWriter(finalPath, this.encoding);
-            writer.println("Output result: ");
+            PrintWriter writerDouble = new PrintWriter(finalPathDouble, this.encoding);
+            PrintWriter writerQuad = new PrintWriter(finalPathQuad, this.encoding);
+            
+            writer.println("");
+            writerDouble.println("");
+            writerQuad.println("");
+            
             writer.close();
+            writerDouble.close();
+            writerQuad.close();
+
         }
         catch (IOException e) {}
     }
     
     public void escritor(int[][] lastGenSeq, int[][] lastGenDouble, int[][] lastGenQuad) throws IOException {
-        buffWrite = new BufferedWriter(new FileWriter(this.finalPath, encoding)); 
+        buffWrite = new BufferedWriter(new FileWriter(this.finalPath, encoding));
         
-        buffWrite.append("Saída sequêncial:\n");
         for(int i = 0; i < lastGenSeq.length; i++){
             for(int j = 0; j < lastGenSeq.length; j ++){
                 buffWrite.append(Integer.toString(lastGenSeq[i][j])
@@ -92,9 +112,10 @@ public class FileManager {
             buffWrite.append("\n");
         }
         
-        buffWrite.append("\n-----------------------------------------------------------------------------\n");
+        buffWrite.close();
         
-        buffWrite.append("\nSaída Double Thread:\n");
+        buffWrite = new BufferedWriter(new FileWriter(this.finalPathDouble, encoding));
+
         for(int i = 0; i < lastGenDouble.length; i++){
             for(int j = 0; j < lastGenDouble.length; j ++){
                 buffWrite.append(Integer.toString(lastGenDouble[i][j])
@@ -103,9 +124,10 @@ public class FileManager {
             buffWrite.append("\n");
         }
         
-        buffWrite.append("\n-----------------------------------------------------------------------------\n");
+        buffWrite.close();
         
-        buffWrite.append("\nSaída Quad Thread:\n");
+        buffWrite = new BufferedWriter(new FileWriter(this.finalPathQuad, encoding));
+        
         for(int i = 0; i < lastGenQuad.length; i++){
             for(int j = 0; j < lastGenQuad.length; j ++){
                 buffWrite.append(Integer.toString(lastGenQuad[i][j])
