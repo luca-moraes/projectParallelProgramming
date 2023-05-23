@@ -9,6 +9,6 @@ Segundo projeto da disciplina de Sistemas Operacionais, lecionada pelo Professor
 | Felipe Del Amore da Cunha | 22.120.085-0 |
 
 # Instruções de execução
-O programa pode ser excutado utilizando a IDE Apache NetBeans ou o IntelliJ da JetBrains, o porjeto precisa que a plataforma possua pelo menos o Java na versão 11 ou superior, é necessário ajustar a string de path da saída dos arquivos se estiver usando Linux ou Windows, se for rodar com ou sem uma IDE também pode ser necessário ajustar essa String na classe FileManager, rodas a classe com a função Main do projeto que o código irá gerar os arquivos de saída com a matriz e os resultados de tempo.
+O programa pode ser excutado utilizando a IDE Apache NetBeans ou o IntelliJ da JetBrains, o porjeto precisa que a plataforma possua pelo menos o Java na versão 11 ou superior, é necessário ajustar a string de path da saída dos arquivos se estiver usando Linux ou Windows, se for rodar com ou sem uma IDE também pode ser necessário ajustar essa String na classe FileManager, execute a classe com a função Main do projeto que o código irá gerar os arquivos de saída com a matriz e os resultados de tempo.
 
 Caso não se utilize uma IDE, é necessário remover a linha de package no inicio de todos os arquivos Java do projeto, depois compilar todas os arquivos e rodar o arquivo com a função Main.
